@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] float detectionLength = 1.4f;
+     [SerializeField] Transform model;
     [SerializeField] float turnSmoothTime = 0.1f;
     [SerializeField] float force;
     [SerializeField] KeyCode jump;
@@ -18,9 +20,11 @@ public class PlayerMovement : MonoBehaviour
 
     float velocity = 0f;
 
+    Vector3 initPos;
+
     void Start()
     {
-        
+        initPos = model.localPosition;
     }
 
     Vector3 moveDirection = Vector3.zero;
@@ -34,24 +38,24 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = pivot.TransformDirection(moveDirection);
         moveDirection.y = 0;
         moveDirection.Normalize();
-
-        grounded = Physics.Raycast(transform.position, Vector3.down, 1.4f);
-
+        
+        model.localPosition = initPos;
+        
+        grounded = Physics.Raycast(transform.position, Vector3.down, detectionLength);
 
         // If you're jumping and you're grounded, you jump.
         if (jumping && grounded) {
+            animator.SetBool("isJumping", true);
             rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
             rb.AddForce(Vector3.up * jumpForce);
-            animator.SetBool("isJumping", true);
         }
 
         // Sets friction when you're grounded
         if (grounded) {
-            animator.SetBool("isJumping", false);
+            //animator.SetBool("isJumping", false);
             rb.drag = 6f;
         }
         else rb.drag = 1f;
-
 
         // Rotates Player
         if (moveDirection.sqrMagnitude > 0f) {
@@ -64,5 +68,10 @@ public class PlayerMovement : MonoBehaviour
     }
     void FixedUpdate() {
         rb.AddForce(moveDirection * force);
+    }
+
+    void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, Vector3.down * detectionLength);
     }
 }

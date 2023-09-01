@@ -582,12 +582,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb626c1be4b3a74fbf5a83ec6880285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  detectionLength: 1.06
+  model: {fileID: 322691006}
   turnSmoothTime: 0.1
   force: 50
   jump: 32
   rb: {fileID: 1402579400}
   pivot: {fileID: 1906708036}
-  jumpForce: 500
+  jumpForce: 1000
   animator: {fileID: 322691005}
 --- !u!54 &1402579400
 Rigidbody:
@@ -648,7 +650,7 @@ Transform:
   m_GameObject: {fileID: 1402579398}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.36, y: 0.9, z: -5.57}
+  m_LocalPosition: {x: 0.36, y: 1.004, z: -5.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -673,7 +675,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400018, guid: d288a0e4a2d923b46898986e979da643, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.887
+      value: -0.996
       objectReference: {fileID: 0}
     - target: {fileID: 400018, guid: d288a0e4a2d923b46898986e979da643, type: 3}
       propertyPath: m_LocalPosition.z
